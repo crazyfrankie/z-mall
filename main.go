@@ -9,8 +9,8 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
+	"zmall/ioc"
 
-	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"go.uber.org/zap"
 
@@ -23,11 +23,11 @@ func main() {
 		panic(err)
 	}
 
-	engine := gin.Default()
+	app := ioc.NewApp()
 
 	server := &http.Server{
 		Addr:    config.GetConf().Server.Host,
-		Handler: engine,
+		Handler: app.Server,
 	}
 
 	go func() {
